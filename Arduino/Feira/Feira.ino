@@ -9,27 +9,30 @@
 
 const int buzzer = 2;
 const int ir = 4;
-
+const int relay = 7;
 int detect;
 
 
 
 void setup(){
-  pinMode(buzzer,OUTPUT);
-  pinMode(ir,INPUT);
+  pinMode(buzzer, OUTPUT);    //Buzzer como saída
+  pinMode(ir, INPUT);         //Infrared como entrada
+  pinMode(relay, OUTPUT);     //Relé como saída
   Serial.begin(9600);
 }
 
 
 void loop(){
-  detect = digitalRead(ir);
+  detect = digitalRead(ir);   //Detecta o estado do sensor IR
   if (detect==0){
+    digitalWrite(relay, HIGH);    //Ative o relay
     Serial.println("Detectado");
-    tone(buzzer,1500);
+    tone(buzzer,1500);    //Toca alarme
     delay(70);
     noTone(buzzer);
     delay(70);
   }
   else
     delay(500);
+    digitalWrite(relay, LOW);
 }
