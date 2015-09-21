@@ -1,7 +1,8 @@
 import processing.serial.*;
 PrintWriter output;
-int i=0;
-int x;
+float x;
+float y;
+float z;
 
 Serial myPort;
 
@@ -16,19 +17,12 @@ void setup() {
 void draw() {
   while (myPort.available() > 0) {
     String data = "";
-    String sub = "";
     data += myPort.readStringUntil('\n'); //Lê até pular a linha (lembrar do println)
-    sub += data.substring(0,2);           //(x,y) -> Lê do caracter x até o y
-    if(sub == null){
-      draw();
+    String sub[] = split(data,' ');       //Split separa a string de acordo com um caracter que desejar
+    x = float(sub[0]);                    //Cada caracter fica em uma posição no vetor
+    y = float(sub[1]);
+    z = float(sub[2]);
+    println(x,y,z);
+    delay(1000);
     }
-    output.println(sub);
-    println(sub);
   }
-}
-
-void keyPressed(){
-  output.flush(); // Writes the remaining data to the file
-  output.close(); // Finishes the file
-  exit();
-}
