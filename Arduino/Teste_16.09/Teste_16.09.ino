@@ -194,7 +194,7 @@ void setup() {
           if (!SD.begin(chipSelect)){
           Serial.println(" Erro!");
           Serial3.println(" Erro!");
-          } else { 
+          } else {
           Serial.println(" OK!");
           Serial3.println(" OK!");
           }
