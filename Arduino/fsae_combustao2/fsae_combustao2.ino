@@ -219,7 +219,6 @@ void loop() {
 
 
 
-
 // ------------------------------------------------------
 // Rotinas relativas ao Giroscópio e Acelerômetro
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -312,7 +311,6 @@ File dataFile = SD.open("datalogfsae3.txt", FILE_WRITE);
     dataFile.println(dados);
     dataFile.close();
   	}
-
 	}
  }
 }

@@ -15,11 +15,11 @@ void draw(){
   background(0);
   //image(grid,0,0);
   TableRow row = table.getRow(i);
-  float x = row.getFloat("x");
-  float y = row.getFloat("y");
-  float z = row.getFloat("z");
+  float x = map(row.getFloat("x"),-1,1,0,360);
+  float y = map(row.getFloat("y"),-1,1,0,360);
+  float z = map(row.getFloat("z"),-1,1,0,360);
 
-  text("Eixo x: " + radians(-x),150,500);
+  text("Eixo x: " + radians(x),150,500);
   text("Eixo y: " + radians(y),350,500);
   text("Eixo z: " + radians(z),550,500);
   text("Linha: " + i,150,550);

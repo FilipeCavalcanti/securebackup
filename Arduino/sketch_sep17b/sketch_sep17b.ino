@@ -11,9 +11,9 @@ void loop() {
   String dados = "";
   val = Serial.read();
   if (val==1){
-    x = random(10,45);
-    y = random(10,45);
-    z = random(10,45);
+    x = random(0,45);
+    y = random(0,45);
+    z = random(0,45);
     dados += x; dados += " "; dados += y; dados += " "; dados += z;
     Serial.println(dados);
     delay(50);
