@@ -10,7 +10,6 @@
  */
 
 
-
 // ------------------------------------------------------
 // Declarações e bibliotecas relativas ao GPS e RTC
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -148,6 +147,11 @@ void setup() {
 	delay(2000);
 	//Inicializa o console serial
 	Serial.begin(9600);
+
+	 //MEGA pin 50 -> miso (Master in) Card Reader "LC studio"
+	 //MEGA pin 51 -> mosi (Master Out)
+	 //MEGA pin 52 -> sck (Serial Clock)
+	 //MEGA pin 53 -> CS (Chip Select)
 
 
 	// ------------------------------------------------------
