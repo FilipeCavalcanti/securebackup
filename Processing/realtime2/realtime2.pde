@@ -1,3 +1,5 @@
+import saito.objloader.*;
+OBJModel model;
 import processing.serial.*;
 Serial myPort;
 PImage background;
@@ -9,14 +11,17 @@ void setup() {
   size(800,600,P3D);
   smooth();
   background = loadImage("back2.jpg");
+  model = new OBJModel (this,"CHALLENGER71.obj");
+  model.scale(40);  
   printArray(Serial.list());
   myPort = new Serial(this, Serial.list()[0], 57600);
   myPort.buffer(81);
+  noStroke();
 }
 
 void draw(){
     if(incoming != null){
-    data = split(incoming,',');
+    data = split(incoming,',');   
     dia = data[0];
     hora = data[1];
     longit = float(data[2]);
@@ -45,12 +50,11 @@ void draw(){
     text("km/h",100,330);
  
     pushMatrix();
-    translate(400,300);
-    rotateX(radians(-x));
-    rotateY(radians(z));
-    rotateZ(radians(y));
-    fill(0,0,255);
-    box(75,25,250);
+    translate(400,350);
+    rotateX(radians(270-x));
+    rotateY(radians(y));
+    rotateZ(radians(180+z));
+    model.draw();
     popMatrix();
     
     if(incoming==null){
