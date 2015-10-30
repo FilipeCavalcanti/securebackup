@@ -14,9 +14,9 @@ SoftwareSerial esp8266(2, 3);
 #define DEBUG true
 #define SERVO 11
 
-const int buzzer = 2; const int ir = 4; const int ldr = A2;
+const int buzzer = 4; const int ir = 5; const int ldr = A2;
 int detect, val;
-const int led  = 7; const int relay = 8;
+const int led  = 6; const int relay = 7;
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 Servo s;
 int pos;
@@ -35,13 +35,6 @@ void setup() {
   lcd.setCursor(0, 1); lcd.print("      UFPB");
   delay(3000); lcd.clear();
   /////// Parte do WiFi ////////
-  sendData("AT+RST\r\n", 2000, DEBUG); // rst
-  sendData("AT+CWJAP=\"CavalcantiAP\",\"cavalcanticasa123\"\r\n", 2000, DEBUG);
-  delay(3000);
-  sendData("AT+CWMODE=1\r\n", 1000, DEBUG);
-  sendData("AT+CIFSR\r\n", 1000, DEBUG);
-  sendData("AT+CIPMUX=1\r\n", 1000, DEBUG);
-  sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG);
 }
 
 void loop() {
@@ -85,41 +78,9 @@ void loop() {
   }
   lcd.setBacklight(HIGH);
   delay(500);
-  // Verifica se o ESP8266 esta enviando dados
-  if (esp8266.available())
-  {
-    if (esp8266.find("+IPD,"))
-    {
-      delay(300);
-      int connectionId = esp8266.read() - 48;
-
-      String webpage = "<head><meta http-equiv=""refresh"" content=""3"">";
-      webpage += "</head><h1><u>ESP8266 - FEE 2015</u></h1><h2>Porta";
-      webpage += "Digital 8: ";
-      int a = digitalRead(8);
-      webpage += a;
-      webpage += "<h2>Porta Digital 9: ";
-      int b = digitalRead(9);
-      webpage += b;
-      webpage += "</h2>";
-
-      String cipSend = "AT+CIPSEND=";
-      cipSend += connectionId;
-      cipSend += ",";
-      cipSend += webpage.length();
-      cipSend += "\r\n";
-
-      sendData(cipSend, 1000, DEBUG);
-      sendData(webpage, 1000, DEBUG);
-
-      String closeCommand = "AT+CIPCLOSE=";
-      closeCommand += connectionId; // append connection id
-      closeCommand += "\r\n";
-
-      sendData(closeCommand, 3000, DEBUG);
-    }
-  }
 }
+
+
 
 
 

@@ -1,0 +1,5 @@
+azul - vcc
+espaço ---
+verde - gnd
+amarelo - scl
+laranja - sda

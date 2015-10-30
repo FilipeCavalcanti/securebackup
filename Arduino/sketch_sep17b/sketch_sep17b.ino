@@ -1,17 +1,18 @@
-int x=0;
-int y=0;
-int z=0;
-int val;
+char relay;
 
-void setup() {
-  Serial.begin(57600);
+void setup(){
+  Serial.begin(9600);
+  pinMode(7,OUTPUT);
 }
 
-void loop() {
-  String dados = "";
-  x = random(0,45);
-  y = random(0,45);
-  z = random(0,45);    dados += x; dados += ","; dados += y; dados += ","; dados += z;
-  Serial.println(dados);
+void loop(){
+  if(Serial.available()){
+    relay = Serial.read();
+    Serial.println(relay);
+    if(relay=='H')
+      digitalWrite(7,HIGH);
+    if(relay=='L')
+      digitalWrite(7,LOW);
+  }
   delay(100);
 }
