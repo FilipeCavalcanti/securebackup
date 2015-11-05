@@ -1,5 +1,5 @@
-import saito.objloader.*;
-OBJModel model;
+//import saito.objloader.*;
+//OBJModel model;
 PImage backufpb;
 PFont font;
 Table table;
@@ -7,11 +7,11 @@ int i=0;
 int linhas;
 
 void setup(){
-  size(800,600,P3D);
-  model = new OBJModel (this,"CHALLENGER71.obj");
-  model.scale(40);
+  size(800,600);
+  //model = new OBJModel (this,"CHALLENGER71.obj");
+  //model.scale(40);
   font = createFont("fonteteste",32);
-  table = loadTable("trajeto29.09.txt","header,csv");
+  table = loadTable("Teste05.11.txt","header,csv");
   linhas = table.getRowCount();
   backufpb = loadImage("back2.jpg");
   smooth(); noStroke();
@@ -19,7 +19,11 @@ void setup(){
 
 void draw(){
   background(backufpb);
-
+  ellipse(400,350,200,200);
+  fill(255,0,0);
+  rect(300,347,200,5);
+  rect(397,250,5,200);
+  
   TableRow row = table.getRow(i);
   float x = row.getFloat("GyroX");
   float y = row.getFloat("GyroY");
@@ -27,7 +31,9 @@ void draw(){
   float speed = row.getFloat("Velocidade");
   float latitude = row.getFloat("Latitude");
   float longitude = row.getFloat("Longitude");
-  String hora = row.getString("Hora");
+  float accx = row.getFloat("AccX");
+  float accy = row.getFloat("AccY");
+  String hora = row.getString("HoraMinutosSegundos");
   
   textFont(font);
   fill(255,255,255);
@@ -38,19 +44,21 @@ void draw(){
   text("Latitude: " + latitude,20,480);
   text("Longitude: " + longitude,20,500);
   text("Hora: " + hora,20,520);
+  text("AccX: " + accx,400,540);
+  text("AccY: " + accy,400,560);
   textSize(24);
   text(speed,85,300);
 
   textSize(21);
   text("km/h",100,330);
 
+// ///G Force
+  float faccX = accx*50;
+  float faccY = accy*50;
   pushMatrix();
-  translate(400,350);
-  rotateX(radians(270-x));
-  rotateY(radians(y));
-  rotateZ(radians(180));
-  model.draw();
-  //fill(0,0,255);
+  translate(400+faccX,350+faccY);
+  fill(0,0,255);
+  ellipse(0,0,25,25);
   //box(75,25,250);  
   popMatrix();
 
@@ -66,4 +74,5 @@ void draw(){
     delay(1000);
     exit();
   }
+  delay(50);
 }
